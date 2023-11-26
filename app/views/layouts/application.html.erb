@@ -1,15 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= full_title(yield(:title)) %></title>
-    <%= csrf_meta_tags %>
+<html> <!--意味は不明。基本構造上最初にhtmlとしている。-->
+  <head> <!--headは表示されない部分-->
+    <title><%= full_title(yield(:title)) %></title> <!--上部タイトル部分-->
+    <%= csrf_meta_tags %> <!--Railsアプリ外部からの不正アクセスに対処するためのHTMLタグ。
+クロスサイトリクエストフォージェリ(CSRF)の対策のために記述する。-->
     <%= stylesheet_link_tag    'application', media: 'all',
-                               'data-turbolinks-track': 'reload' %>
+                               'data-turbolinks-track': 'reload' %> <!--Railsが提供するCSSタグを生成します。-->
     <%= javascript_include_tag 'application',
-                               'data-turbolinks-track': 'reload' %>
+                               'data-turbolinks-track': 'reload' %> <!--Railsが提供するJavaScriptタグを生成します。-->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]--> <!--これでMicrosoft Internet Explorer (IE) のバージョンが9より小さい場合 (if lt IE 9) にのみコメント内の記述が発動します。これにより、Firefox、Chrome、Safariなどの他のブラウザに影響を与えずに、IEのバージョンが9未満の場合にのみHTML5 shimを読み込めるため、非常に好都合です。-->
   </head>
 
-  <body>
+  <body> <!--本文のデザイン-->
+    <header class="navbar navbar-fixed-top navbar-inverse"> <!--navbar-fixed-top――これを付けると、ナビゲーションバーがブラウザの最上部に固定されて表示されます。navbar-inverse――これは、反転表示です。黒字に白い文字でバーが表示されます。-->
+      <div class="container"> <!--コンテンツの横幅を調整することができる。Containerがないと、画面の左端から右端まで画像や文字などがよってしまうので、とてもみにくいウェブサイトになる。-->
+        <%= link_to "勤怠システム", '#', id: "logo" %>
+        <nav> <!--サイトのメインメニュー-->
+          <ul class="nav navbar-nav navbar-right"> <!--unordered list(順序のないリスト)、navbar-nav？、navbar-right右寄せ-->
+            <li><%= link_to "トップへ", '#' %></li> <!--ulと一緒に使う-->
+            <li><%= link_to "ログイン", '#' %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
     <%= yield %>
+    </div>
   </body>
 </html>
