@@ -8,26 +8,13 @@
                                'data-turbolinks-track': 'reload' %> <!--Railsが提供するCSSタグを生成します。-->
     <%= javascript_include_tag 'application',
                                'data-turbolinks-track': 'reload' %> <!--Railsが提供するJavaScriptタグを生成します。-->
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
-      </script>
-    <![endif]--> <!--これでMicrosoft Internet Explorer (IE) のバージョンが9より小さい場合 (if lt IE 9) にのみコメント内の記述が発動します。これにより、Firefox、Chrome、Safariなどの他のブラウザに影響を与えずに、IEのバージョンが9未満の場合にのみHTML5 shimを読み込めるため、非常に好都合です。-->
+    <%= render 'layouts/shim' %>
   </head>
 
   <body> <!--本文のデザイン-->
-    <header class="navbar navbar-fixed-top navbar-inverse"> <!--navbar-fixed-top――これを付けると、ナビゲーションバーがブラウザの最上部に固定されて表示されます。navbar-inverse――これは、反転表示です。黒字に白い文字でバーが表示されます。-->
-      <div class="container"> <!--コンテンツの横幅を調整することができる。Containerがないと、画面の左端から右端まで画像や文字などがよってしまうので、とてもみにくいウェブサイトになる。-->
-        <%= link_to "勤怠システム", '#', id: "logo" %>
-        <nav> <!--サイトのメインメニュー-->
-          <ul class="nav navbar-nav navbar-right"> <!--unordered list(順序のないリスト)、navbar-nav？、navbar-right右寄せ-->
-            <li><%= link_to "トップへ", '#' %></li> <!--ulと一緒に使う-->
-            <li><%= link_to "ログイン", '#' %></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <%= render 'layouts/header' %>
     <div class="container">
-    <%= yield %>
+      <%= yield %>
     </div>
   </body>
 </html>

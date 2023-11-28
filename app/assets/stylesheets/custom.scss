@@ -1,2 +1,65 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto; /*構成がオーバーフローする時オートで整える*/
+}
+
+textarea {
+  resize: vertical; /*テキストエリアのサイズ変更を横方向に調整することができる*/
+}
+
+.center {
+  text-align: center; /*テキストの横方向の位置をセンターにする*/
+}
+
+.center h1 {
+  margin-bottom: 10px; /*要素の下側の隙間調整。ここでは勤怠システムとSign upとの間*/
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1; /*行間の隙間*/
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px; /*文字間の隙間*/
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;  /*文字の太さ*/
+  color: #777; /*文字の色灰色*/
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+/* header */
+
+#logo {
+  float: left; /*要素を左寄せにする*/
+  margin-right: 10px; /*要素を右側の隙間*/
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase; /*要素のテキストを大文字表記*/
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold; /*bold 太字*/
+}
+
+#logo:hover {
+  color: #fff; /*ホワイト*/
+  text-decoration: none; /*テキスト装飾を指定するプロパティ:noneで装飾を行わない*/
+}
