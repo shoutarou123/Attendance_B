@@ -1,6 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* universal(一般的な) */
+
 body {
   padding-top: 60px;
 }
@@ -20,6 +22,8 @@ textarea {
 .center h1 {
   margin-bottom: 10px; /*要素の下側の隙間調整。ここでは勤怠システムとSign upとの間*/
 }
+
+/* typography(デザイン構成) */
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1; /*行間の隙間*/
@@ -62,4 +66,31 @@ p {
 #logo:hover {
   color: #fff; /*ホワイト*/
   text-decoration: none; /*テキスト装飾を指定するプロパティ:noneで装飾を行わない*/
+}
+
+/* debug */
+
+.debug_dump {
+  clear: both; /*左寄せまたは右寄せされた全ての要素に対する回り込みを解除する*/
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  -moz-box-sizing:    border-box; //ベンダープレフィックスと言って、昔のブラウザで対応していない CSS の機能を対応させるために使用
+  -webkit-box-sizing: border-box; //ベンダープレフィックスと言って、昔のブラウザで対応していない CSS の機能を対応させるために使用
+  box-sizing:         border-box;
+}
+
+/* ユーザー情報テーブル */
+
+.user-table {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.label-signup {
+  margin-top: 5px;
+}
+
+.btn-signup {
+  margin-top: 10px;
 }
