@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params) # user_paramsはparams[:user]の代わりであり、userはuser情報全てを意味する
     if @user.save
-    
+      flash[:success] = '新規作成に成功しました。'
+      redirect_to @user # redirect_to user_url(@user) ←showアクションにリダイレクトしている
     else
       render :new
     end
