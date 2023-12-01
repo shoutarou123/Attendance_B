@@ -21,6 +21,6 @@ class UsersController < ApplicationController
   private
   
     def user_params # 外部のユーザーが知る必要がないため、外部から使用できないようにしている。
-      params.require(:user).permit(:name, :email, :password, :password_confirmation) # requireは必要とする。permitは許可する。
+      params.require(:user).permit(:name, :email, :department, :password, :password_confirmation) # requireは必要とする。permitは許可する。
     end
 end
