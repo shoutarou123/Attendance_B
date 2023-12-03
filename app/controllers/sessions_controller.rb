@@ -13,4 +13,11 @@ class SessionsController < ApplicationController
       render :new # ログインページに遷移する
     end
   end
+  
+  def destroy
+    log_out
+    flash[:success] = 'ログアウトしました。'
+    redirect_to root_url # トップ画面に戻る
+  end
+  
 end
