@@ -19,6 +19,10 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit
+    @user = User.find(params[:id])
+  end
+  
   private
   
     def user_params # 外部のユーザーが知る必要がないため、外部から使用できないようにしている。
