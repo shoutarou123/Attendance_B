@@ -5,7 +5,7 @@
       <ul class="nav navbar-nav navbar-right"> <!--unordered list(順序のないリスト)、navbar-nav？、navbar-right右寄せ-->
         <li><%= link_to "トップへ", root_path %></li> <!--ulと一緒に使う-->
         <% if logged_in? %> <!--loginできていればtrue-->
-          <li><%= link_to "ユーザー一覧", '#' %></li>
+          <li><%= link_to "ユーザー一覧", users_path %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Account <b class="caret"></b> <!--b=boldで囲まれたところが太字になる-->

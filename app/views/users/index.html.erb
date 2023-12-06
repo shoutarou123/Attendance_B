@@ -1,0 +1,18 @@
+<% provide(:title, 'All Users') %>
+<h1>ユーザー一覧</h1>
+
+<div class="col-md-10 col-md-offset-1">
+  <table class="table table-condensed table-hover" id="table-users"> <!--table-condensed通常よりも行幅の狭いテーブル-->
+    <thead> <!--tableheader表の行(水平方向のグループ化)-->
+      <tr> <!--ティアールと読む table rowの略 表の行-->
+        <th><%=User.human_attribute_name :name %></th> <!--teble header 表の見出し human_attribute_name 内部的に I18n モジュールを利用してくれる-->
+      </tr>
+    </thead>
+    
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, user %></td> <!--ユーザーの名前をクリックするとshowアクションページに遷移-->
+      </tr>
+    <% end %>
+  </table>
+</div>

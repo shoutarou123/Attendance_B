@@ -50,4 +50,14 @@ module SessionsHelper
     !current_user.nil? # 現在ログインしているuserがnilではない？ nilでなかったらture、nilだったらfalse
   end
   
+  # 記憶しているURL(またはデフォルトURL)にリダイレクトします。
+  def redirect_back_or(default_url)
+    redirect_to(session[:forwarding_url] || default_url) # 保存されているフォワーディングurlにリダイレクトするまたはそれがnilの時はdefault_urlに遷移する
+    session.delete(:forwarding_url) # 遷移後は次同じ処理にならないように削除しておく
+  end
+  
+  # アクセスしようとしたURLを記憶します。
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get? # getリクエストの場合のみオリジナルurlをフォワーディングurlに保存
+  end
 end
