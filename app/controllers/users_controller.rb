@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update] # 現在のユーザーは自分の情報のみ編集可
   
   def index
-    @users = User.all # 全てのユーザーを代入した複数形であるため@usersとしています
+    @users = User.paginate(page: params[:page]) # 全てのユーザーUser.all→ページネーション判定できるオブジェクトへ変更を代入した複数形であるため@usersとしています
   end
   
   def show
