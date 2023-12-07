@@ -4,7 +4,8 @@
 User.create!(name: "Sample User",
              email: "sample@email.com",
              password: "password",
-             password_confirmation: "password")
+             password_confirmation: "password",
+             admin: true) # 管理権限を持つ
 
 # サンプルユーザー
 60.times do |n|

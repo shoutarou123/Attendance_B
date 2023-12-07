@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update] # 共通の@user = User.find(params[:id])をshow,edit,updateアクションで使えるようにしている
-  before_action :logged_in_user, only: [:index, :show, :edit, :update] # ログインユーザーじゃなければ一覧、詳細、編集、更新できない
+  before_action :set_user, only: [:show, :edit, :update, :destroy] # 共通の@user = User.find(params[:id])をshow,edit,update,destroyアクションで使えるようにしている
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy] # ログインユーザーじゃなければ一覧、詳細、編集、更新、削除できない
   before_action :correct_user, only: [:edit, :update] # 現在のユーザーは自分の情報のみ編集可
+  before_action :admin_user, only: :destroy # 管理権限あるものだけdestroyアクションできる
   
   def index
     @users = User.paginate(page: params[:page]) # 全てのユーザーUser.all→ページネーション判定できるオブジェクトへ変更を代入した複数形であるため@usersとしています
@@ -37,6 +38,12 @@ class UsersController < ApplicationController
     end
   end
   
+  def destroy
+    @user.destroy
+    flash[:success] = '#{@user.name}のデータを削除しました。'
+    redirect_to users_url # 一覧へ遷移
+  end
+  
   private
   
     def user_params # 外部のユーザーが知る必要がないため、外部から使用できないようにしている。
@@ -62,5 +69,10 @@ class UsersController < ApplicationController
     # アクセスしたユーザーが現在ログインしているユーザーか確認します。
     def correct_user
       redirect_to(root_url) unless current_user?(@user) # ユーザー情報が現在のユーザーと異なる場合トップページに遷移
+    end
+    
+    # システム管理権限所有かどうか判定します。
+    def admin_user
+      redirect_to root_url unless current_user.admin? # 管理権限がない場合トップ画面に遷移
     end
 end
