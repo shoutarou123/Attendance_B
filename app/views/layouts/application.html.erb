@@ -9,6 +9,7 @@
     <%= javascript_include_tag 'application',
                                'data-turbolinks-track': 'reload' %> <!--Railsが提供するJavaScriptタグを生成します。-->
     <%= render 'layouts/shim' %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body> <!--本文のデザイン-->

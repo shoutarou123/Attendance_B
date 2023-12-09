@@ -15,7 +15,7 @@
         <td><%= link_to user.name, user %></td> <!--ユーザーの名前をクリックするとshowアクションページに遷移-->
         <td>
           <% if current_user.admin? && !current_user?(user) %> <!--管理者権限を持つかつ現在ユーザー以外であれば下の処理実行-->
-            <%= link_to "削除", user, data: { turbo_method: :delete, confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
+            <%= link_to "削除", user, data: { turbo_method: :delete, turbo_confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
           <% end %>
         </td>
       </tr>
