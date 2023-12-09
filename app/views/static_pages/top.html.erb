@@ -1,5 +1,8 @@
 <% provide(:title, "Top")%>
 <div class="center jumbotron"> <!--center jumbotronで丸角になる-->
   <h1>勤怠管理システム</h1>
-  <%= link_to "Sign up", signup_path, class:"btn btn-lg btn-primary" %>
+　　<div class="container">
+      <p><%= link_to "ログイン", login_path, class: "btn btn-lg btn-primary" %></p>
+      <p>アカウント作成は<%= link_to "こちら", signup_path, class:"signup f-primary" %>から</p>
+    </div>
 </div>
