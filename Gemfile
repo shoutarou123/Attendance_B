@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "3.0.6"
 gem "rails", "~> 7.1.0"
+gem 'rails-i18n' # 日本語化
 gem 'bcrypt' #パスワードを適切にハッシュ化することで、万が一ネットによる攻撃を受けてデータベースからパスワードが漏洩してしまった場合でも直接パスワードが渡らず、最悪の事態を回避することができます。これによりhas_secure_passwordが使用できるようになります。。
 gem 'faker' # サンプルユーザー作成
 gem 'bootstrap-sass'
