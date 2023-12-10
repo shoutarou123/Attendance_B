@@ -7,14 +7,31 @@
     <thead> <!--tableheader表の行(水平方向のグループ化)-->
       <tr> <!--ティアールと読む table rowの略 表の行-->
         <th><%=User.human_attribute_name :name %></th> <!--teble header 表の見出し human_attribute_name 内部的に I18n モジュールを利用してくれる-->
+        <th class="center"><%=User.human_attribute_name :department %></th>
+        <% if current_user.admin? %> <!--現在ユーザーが管理権限あれば次の処理実行-->
+          <th class="center"><%=User.human_attribute_name :basic_time %></th> <!--基本勤怠時間表示-->
+          <th class="center"><%=User.human_attribute_name :work_time %></th> <!--勤怠時間表示-->
+        <% end %>
       </tr>
     </thead>
     
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name, user %></td> <!--ユーザーの名前をクリックするとshowアクションページに遷移-->
         <td>
+          <% if current_user.admin? %> <!--現在ユーザーに管理権限あれば下の処理実行-->
+            <%= link_to user.name, user %> <!--ユーザーの名前をクリックするとshowアクションページに遷移-->
+          <% else %> <!--管理権限なければ-->
+            <%= user.name %> <!--名前表示のみ-->
+          <% end %>
+        </td>
+        <td class="center"><%= user.department.present? ? user.department : "未所属" %></td>
+        <% if current_user.admin? %>
+          <td class="center"><%= format_basic_info(user.basic_time) %></td>
+          <td class="center"><%= format_basic_info(user.work_time) %></td>
+        <% end %>
+        <td class="center">
           <% if current_user.admin? && !current_user?(user) %> <!--管理者権限を持つかつ現在ユーザー以外であれば下の処理実行-->
+            <%= link_to "基本情報編集", edit_basic_info_user_path(user), remote: true, class: "btn btn-success" %> <!--remote: trueモーダルウィンドウ表示のため必要な記述-->
             <%= link_to "削除", user, data: { turbo_method: :delete, turbo_confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
           <% end %>
         </td>
@@ -23,3 +40,6 @@
   </table>
   <%= will_paginate %>
 </div>
+
+<!--モーダルウィンドウ表示-->
+<div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy] # 共通の@user = User.find(params[:id])をshow,edit,update,destroyアクションで使えるようにしている
-  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy] # ログインユーザーじゃなければ一覧、詳細、編集、更新、削除できない
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info] # 共通の@user = User.find(params[:id])をshow,edit,update,destroy,edit_basic_info,update_basic_infoアクションで使えるようにしている
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info] # ログインユーザーじゃなければ一覧、詳細、編集、更新、削除、勤怠情報編集、勤怠情報更新できない
   before_action :correct_user, only: [:edit, :update] # 現在のユーザーは自分の情報のみ編集可
-  before_action :admin_user, only: :destroy # 管理権限あるものだけdestroyアクションできる
+  before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info] # 管理権限あるものだけdestroy,edit_basic_info,update_basic_infoアクションできる
   
   def index
     @users = User.paginate(page: params[:page]) # 全てのユーザーUser.all→ページネーション判定できるオブジェクトへ変更を代入した複数形であるため@usersとしています
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   
   def update
     if @user.update(user_params)
-      flash[:success] = 'ユーザー情報を更新しました。'
+      flash[:success] = "ユーザー情報を更新しました。"
       redirect_to @user
     else
       render :edit
@@ -40,8 +40,14 @@ class UsersController < ApplicationController
   
   def destroy
     @user.destroy
-    flash[:success] = '#{@user.name}のデータを削除しました。'
+    flash[:success] = "#{@user.name}のデータを削除しました。"
     redirect_to users_url # 一覧へ遷移
+  end
+  
+  def edit_basic_info
+  end
+  
+  def update_basic_info
   end
   
   private

@@ -96,3 +96,9 @@ p {
     color: $state-danger-text; //入力文字赤字
   }
 }
+
+/* モーダルウィンドウの位置調整*/
+
+.model-dialog-center {
+  padding-top: 10%;
+}

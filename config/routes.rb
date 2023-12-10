@@ -8,5 +8,10 @@ Rails.application.routes.draw do
   post   '/login', to: 'sessions#create' # ログイン 
   delete '/logout', to: 'sessions#destroy' # ログアウト
   
-  resources :users
+  resources :users do
+    member do
+      get 'edit_basic_info' # 勤怠情報編集ページ
+      patch 'update_basic_info' # 勤怠情報更新アクション
+    end
+  end
 end
