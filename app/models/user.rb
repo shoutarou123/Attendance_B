@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :attendances, dependent: :destroy # attendanceモデルに対して1:多、userモデルが削除されると関連するattendanceモデルも削除される
   # 「remember_token」という仮想の属性を作成します。
   attr_accessor :remember_token
   before_save { self.email = email.downcase } #保存される際に現在のメールアドレスを小文字化する
