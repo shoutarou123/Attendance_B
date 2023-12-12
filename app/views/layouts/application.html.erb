@@ -16,7 +16,7 @@
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |message_type, msg| %>
-        <div class="alert alert-<%= message_type %>"><%= msg %></div> <!--alert-successで緑などメッセージによって色が変化する-->
+        <div class="alert alert-<%= message_type %>"><%= msg.html_safe %></div> <!--alert-successで緑などメッセージによって色が変化する。html_safeエラーメッセージを配列の要素ごとに区切る際に指定した<br>がHTMLとして有効になり改行される-->
       <% end %>
       <%= yield %>
       <%= debug(params) if Rails.env.development? %> <!--デバッグ表示-->

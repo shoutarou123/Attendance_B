@@ -48,6 +48,12 @@ class UsersController < ApplicationController
   end
   
   def update_basic_info
+    if @user.update(basic_info_params)
+      flash[:success] = "#{@user.name}の基本情報を更新しました。"
+    else
+      flash[:danger] = "#{@user.name}の更新は失敗しました。<br>" + @user.errors.full_messages.join("<br>") #br各要素を区切る
+    end
+    redirect_to users_url # 一覧へ遷移
   end
   
   private
@@ -56,6 +62,9 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :department, :password, :password_confirmation) # requireは必要とする。permitは許可する。
     end
     
+    def basic_info_params
+      params.require(:user).permit(:basic_time, :work_time) # 所属更新は不要なので削除
+    end
     # beforeフィルター
     
     # paramsハッシュからユーザーを取得します。

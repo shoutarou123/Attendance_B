@@ -31,7 +31,7 @@
         <% end %>
         <td class="center">
           <% if current_user.admin? && !current_user?(user) %> <!--管理者権限を持つかつ現在ユーザー以外であれば下の処理実行-->
-            <%= link_to "基本情報編集", edit_basic_info_user_path(user), remote: true, class: "btn btn-success" %> <!--remote: trueモーダルウィンドウ表示のため必要な記述-->
+            <%= link_to "基本情報編集", edit_basic_info_user_path(user), class: "btn btn-success" %> <!--remote: true機能しないためモーダルウィンドウ表示削除-->
             <%= link_to "削除", user, data: { turbo_method: :delete, turbo_confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
           <% end %>
         </td>
@@ -40,6 +40,3 @@
   </table>
   <%= will_paginate %>
 </div>
-
-<!--モーダルウィンドウ表示-->
-<div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
