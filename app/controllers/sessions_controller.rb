@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       redirect_back_or user # sessions_helper参照 保存されているページへ遷移　保存ページなければuser_url(user)のshowに遷移 viewで使わないから@がない
     else
       flash.now[:danger] = '認証に失敗しました。' # flash renderの組み合わせだと表示が残ってしまう
-      render :new # ログインページに遷移する
+      render :new, status: :unprocessable_entity # ログインページに遷移する。status: :unprocessable_entityがないとRails7はエラー表示されない。
     end
   end
   

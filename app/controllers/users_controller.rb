@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       flash[:success] = '新規作成に成功しました。'
       redirect_to @user # redirect_to user_url(@user) ←showアクションにリダイレクトしている
     else
-      render :new
+      render :new, status: :unprocessable_entity # status: :unprocessable_entity これがないとRails7はエラーメッセージ表示されない
     end
   end
   
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       flash[:success] = "ユーザー情報を更新しました。"
       redirect_to @user
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
   
