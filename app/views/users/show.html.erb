@@ -16,3 +16,33 @@
     </tr>
   </table>
 </div>
+
+<div>
+  <table class="table table-bordered table-condensed table-hover" id ="table-attendances">
+    <thead> <!-- table headerの略で表のヘッダー部分 -->
+      <tr> <!--table rowの略で表の行-->
+        <th>日付</th> <!--table headerの略で表の見出し-->
+        <th>曜日</th>
+        <th>勤怠登録</th>
+        <th>出勤時間</th>
+        <th>退勤時間</th>
+        <th>在社時間</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+    
+    <tbody> <!--table bodyの略で表の本体部分-->
+      <% (@first_day..@last_day).each do |day| %>
+        <tr>
+          <td><%= l(day, format: :short) %></td>
+          <td><%= $days_of_the_week[day.wday] %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

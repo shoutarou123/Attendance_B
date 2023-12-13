@@ -9,6 +9,8 @@ class UsersController < ApplicationController
   end
   
   def show
+    @first_day = Date.current.beginning_of_month #Date.current当日。beginning_of_month Railsのメソッドで当月の初日。
+    @last_day = @first_day.end_of_month # end_of_month 終日。つまり当月の終日になる。
   end
   
   def new
