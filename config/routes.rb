@@ -13,5 +13,6 @@ Rails.application.routes.draw do
       get 'edit_basic_info' # 勤怠情報編集ページ
       patch 'update_basic_info' # 勤怠情報更新アクション
     end
+    resources :attendances, only: :update # viewsなし。updateアクションのみ
   end
 end

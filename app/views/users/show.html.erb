@@ -46,13 +46,17 @@
     </thead>
     
     <tbody> <!--table bodyの略で表の本体部分-->
-      <% (@first_day..@last_day).each do |day| %>
+      <% @attendances.each do |day| %>
         <tr>
-          <td><%= l(day, format: :short) %></td>
-          <td><%= $days_of_the_week[day.wday] %></td> <!--day.worked_on.wdayにするとエラーになるのでとりあえずそのまま-->
+          <td><%= l(day.worked_on, format: :short) %></td>
+          <td><%= $days_of_the_week[day.worked_on.wday] %></td>
           <td></td>
           <td></td>
-          <td></td>
+          <td>
+            <% if (Date.current == day.worked_on) && day.started_at.nil? %> <!--繰り返し処理中の日付と実際の日付における当日が一致することを条件。該当する日付データにはstarted_atがnilであるか？どちらもtrueとなる時のみ、ボタンの出力部分が実行-->
+              <%= link_to "出社", user_attendance_path(@user,day), data: { turbo_method: :patch }, class: "btn btn-primary btn-attendance" %> <!--updateアクションに飛ばしている-->
+            <% end %>
+          </td>
           <td></td>
           <td></td>
           <td></td>
