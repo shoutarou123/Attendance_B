@@ -3,14 +3,13 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info] # ログインユーザーじゃなければ一覧、詳細、編集、更新、削除、勤怠情報編集、勤怠情報更新できない
   before_action :correct_user, only: [:edit, :update] # 現在のユーザーは自分の情報のみ編集可
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info] # 管理権限あるものだけdestroy,edit_basic_info,update_basic_infoアクションできる
+  before_action :set_one_month, only: :show # ページ出力前に1ヶ月分のデータの存在を確認・セットします。
   
   def index
     @users = User.paginate(page: params[:page]) # 全てのユーザーUser.all→ページネーション判定できるオブジェクトへ変更を代入した複数形であるため@usersとしています
   end
   
   def show
-    @first_day = Date.current.beginning_of_month #Date.current当日。beginning_of_month Railsのメソッドで当月の初日。
-    @last_day = @first_day.end_of_month # end_of_month 終日。つまり当月の終日になる。
   end
   
   def new
