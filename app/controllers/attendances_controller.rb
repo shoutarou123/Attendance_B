@@ -1,2 +1,16 @@
 class AttendancesController < ApplicationController
+
+  def update
+    @user = User.find(params[:user_id])
+    @attendance = Attendance.find(params[:id])
+    # 出勤時間が未登録であることを判定します
+    if @attendance.started_at.nil? # 始まり時間が登録されていなかったら
+      if@attendance.update(started_at: Time.current.change(sec: 0)) # 現在時刻を登録する。sec: 0は秒数を0にする。
+        flash[:info] = "おはようございます！"
+      else
+        flash[:danger] = "勤怠登録に失敗しました。やり直してください。"
+      end
+    end
+    redirect_to @user # showアクションに遷移
+  end
 end
