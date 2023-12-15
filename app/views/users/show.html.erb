@@ -53,8 +53,8 @@
           <td><%= l(day.started_at, format: :timeH) if day.started_at.present? %></td> <!--started_atの値が存在する場合のみ表示-->
           <td><%= l(day.started_at, format: :timeM) if day.started_at.present? %></td>
           <td>
-            <% if (Date.current == day.worked_on) && day.started_at.nil? %> <!--繰り返し処理中の日付と実際の日付における当日が一致することを条件。該当する日付データにはstarted_atがnilであるか？どちらもtrueとなる時のみ、ボタンの出力部分が実行-->
-              <%= link_to "出社", user_attendance_path(@user,day), data: { turbo_method: :patch }, class: "btn btn-primary btn-attendance" %> <!--updateアクションに飛ばしている-->
+            <% if btn_text = attendance_state(day) %> <!--引数には繰り返し処理中のAttendanceオブジェクトを渡しています。-->
+              <%= link_to "#{btn_text}", user_attendance_path(@user, day), data: { turbo_method: :patch }, class: "btn btn-primary btn-attendance" %> <!--updateアクションに飛ばしている-->
             <% end %>
           </td>
           <td></td>
