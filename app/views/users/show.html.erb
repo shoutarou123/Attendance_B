@@ -57,8 +57,8 @@
               <%= link_to "#{btn_text}", user_attendance_path(@user, day), data: { turbo_method: :patch }, class: "btn btn-primary btn-attendance" %> <!--updateアクションに飛ばしている-->
             <% end %>
           </td>
-          <td></td>
-          <td></td>
+          <td><%= l(day.finished_at, format: :timeH) if day.finished_at.present? %></td> <!--finished_atの値が存在する場合のみ表示-->
+          <td><%= l(day.finished_at, format: :timeM) if day.finished_at.present? %></td>
           <td></td>
           <td></td>
           <td></td>
