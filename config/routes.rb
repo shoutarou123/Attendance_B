@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get 'edit_basic_info' # 勤怠情報編集ページ
       patch 'update_basic_info' # 勤怠情報更新アクション
       get 'attendances/edit_one_month' # 勤怠編集ページ
+      patch 'attendances/update_one_month' # 勤怠編集データ更新
     end
     resources :attendances, only: :update # viewsなし。updateアクションのみ
   end
