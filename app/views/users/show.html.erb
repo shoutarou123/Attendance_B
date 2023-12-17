@@ -10,7 +10,7 @@
       <td colspan="3">基本時間:<%= format_basic_info(@user.basic_time) %></td>
       <td>初日：<%= l(@first_day, format: :short) %></td>
     </tr>
-    
+   
     <tr>
       <td>所属: <%= @user.department.present? ? @user.department : "未所属" %></td> <!--存在すればtrueでその値を、存在しなければfalseで未所属となる。-->
       <td>名前:<%= @user.name %></td>
@@ -21,7 +21,9 @@
     </tr>
   </table>
 </div>
-
+<div class="btn-users-show">
+  <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-success"%>
+</div>
 <div>
   <table class="table table-bordered table-condensed table-hover" id ="table-attendances">
     <thead> <!-- table headerの略で表のヘッダー部分 -->

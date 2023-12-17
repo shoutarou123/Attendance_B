@@ -4,6 +4,32 @@ class ApplicationController < ActionController::Base
 
   $days_of_the_week = %w{日 月 火 水 木 金 土} # グローバル変数：どこからでも呼び出すことができるもの
 
+  # beforeフィルター
+  
+  # paramsハッシュからユーザーを取得します。
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+ # ログイン済みのユーザーか確認します。
+  def logged_in_user
+    unless logged_in? # ログインしていなければ下の処理実行
+      store_location # sessions_helper参照 ページの記憶
+      flash[:danger] = "ログインしてください。"
+      redirect_to login_url # ログインページへ遷移
+    end
+  end
+  
+# アクセスしたユーザーが現在ログインしているユーザーか確認します。
+  def correct_user
+    redirect_to(root_url) unless current_user?(@user) # ユーザー情報が現在のユーザーと異なる場合トップページに遷移
+  end
+  
+# システム管理権限所有かどうか判定します。
+  def admin_user
+    redirect_to root_url unless current_user.admin? # 管理権限がない場合トップ画面に遷移
+  end
+  
   # ページ出力前に1ヶ月分のデータの存在を確認・セットします。
   def set_one_month 
     @first_day = params[:date].nil?? #nilなら初日をnil以外ならその日を代入
