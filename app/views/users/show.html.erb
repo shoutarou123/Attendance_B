@@ -2,9 +2,9 @@
 <div>
   <table class="table table-bordered table-condensed user-table"> <!--borderedボーダー付き、condensed行間の狭い-->
     <tr> <!--table row(行)-->
-      <td><%= link_to "←", user_path(date: @first_day.prev_month), class:"btn btn-info" %> <!--ボタンの色後で修正-->
+      <td><%= link_to "←", user_path(date: @first_day.prev_month), class:"btn btn-default" %>
       <%= l(@first_day, format: :middle) %> 時間管理表
-      <%= link_to "→", user_path(date: @first_day.next_month), class: "btn btn-info" %> <!--ボタンの色後で修正-->
+      <%= link_to "→", user_path(date: @first_day.next_month), class: "btn btn-default" %>
       </td> <!--table date(データ)-->
       <td>指定勤務時間:<%= format_basic_info(@user.work_time) %></td>
       <td colspan="3">基本時間:<%= format_basic_info(@user.basic_time) %></td>
