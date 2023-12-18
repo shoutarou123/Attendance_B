@@ -30,4 +30,10 @@ class AttendancesController < ApplicationController
   
   def update_one_month
   end
+  
+  private
+    # 1か月分の勤怠情報を扱います。
+    def attendances_params #paramsハッシュの中のuserがキーのハッシュの中の:attendancesがキーのハッシュの中のネストされたidと各カラム
+      params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+    end
 end
