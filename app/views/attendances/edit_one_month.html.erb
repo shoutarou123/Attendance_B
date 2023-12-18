@@ -17,23 +17,29 @@
         </thead>
         <tbody>
           <% @attendances.each do |day| %>
-          <tr>
-            <td><%= l(day.worked_on, format: :short) %></td>
-            <td><%= $days_of_the_week[day.worked_on.wday] %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <%= f.fields_for "attendances[]", day do |attendance| %> <!--各フォームのinputタグのname属性にattendances[id][カラム名]の形式で展開される-->
+              <tr>
+                <td><%= l(day.worked_on, format: :short) %></td> <!--日付-->
+                <td><%= $days_of_the_week[day.worked_on.wday] %></td> <!--曜日-->
+                <td><%= attendance.time_field :started_at, class: "form-control" %></td> <!--出社-->
+                <td><%= attendance.time_field :finished_at, class: "form-control" %></td> <!--退社-->
+                <td>
+                  <% if day.started_at.present? && day.finished_at.present? %> <!--在社時間-->
+                    <%= working_times(day.started_at, day.finished_at) %>
+                  <% end %>
+                </td>
+                <td><%= attendance.text_field :note, class: "form-control" %></td> <!--備考-->
+                <td></td> <!--残業指示-->
+                <td></td> <!--指示書-->
+              </tr>
+            <% end %>
           <% end %>
-          </tr>
         </tbody>
       </table>
   </div>
 
   <div class="center">
     <%= link_to "キャンセル", user_path(date: @first_day), class: "btn btn-lg btn-default" %>
-    <%= f.submit "編集を保存する", class: "btn btn-lg btn-primary" %>
+    <%= f.submit "編集を保存する", class: "btn btn-lg btn-default" %>
   </div>
 <% end %>
