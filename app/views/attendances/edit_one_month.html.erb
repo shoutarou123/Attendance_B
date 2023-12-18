@@ -21,8 +21,13 @@
               <tr>
                 <td><%= l(day.worked_on, format: :short) %></td> <!--日付-->
                 <td><%= $days_of_the_week[day.worked_on.wday] %></td> <!--曜日-->
-                <td><%= attendance.time_field :started_at, class: "form-control" %></td> <!--出社-->
-                <td><%= attendance.time_field :finished_at, class: "form-control" %></td> <!--退社-->
+                <% if !current_user.admin? && (Date.current < day.worked_on) %> <!--ユーザーに権限がない。かつ現在日付より勤怠オブジェクトが大きい-->
+                  <td><%= attendance.time_field :started_at, readonly: true, class: "form-control" %></td> <!--出社 readonly: trueにより編集不可-->
+                  <td><%= attendance.time_field :finished_at, readonly: true, class: "form-control" %></td> <!--退社-->
+                <% else %> <!--上記条件以外つまり管理者-->
+                  <td><%= attendance.time_field :started_at, class: "form-control" %></td>
+                  <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
+                <% end %>
                 <td>
                   <% if day.started_at.present? && day.finished_at.present? %> <!--在社時間-->
                     <%= working_times(day.started_at, day.finished_at) %>

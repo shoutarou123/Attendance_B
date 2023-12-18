@@ -1,6 +1,7 @@
 class AttendancesController < ApplicationController
   before_action :set_user, only: [:edit_one_month, :update_one_month]
   before_action :logged_in_user, only: [:update, :edit_one_month]
+  before_action :admin_or_correct_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
   
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
@@ -46,5 +47,16 @@ class AttendancesController < ApplicationController
     # 1か月分の勤怠情報を扱います。
     def attendances_params #paramsハッシュの中のuserがキーのハッシュの中の:attendancesがキーのハッシュの中のネストされたidと各カラム
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+    end
+    
+    # beforeフィルター
+    
+    # 管理権限者、または現在ログインしているユーザーを許可します。
+    def admin_or_correct_user
+      @user = User.find(prams[:user_id]) if @user.blank? # ユーザー情報が空だったら、ユーザーidの情報を代入
+      unless current_user?(@user) || current_user.adimin? # 現在ユーザーまたは管理権限者ではない場合
+        flash[:danger] = "管理権限がありません。"
+        redirect_to(root_url) # トップ画面に遷移
+      end
     end
 end
