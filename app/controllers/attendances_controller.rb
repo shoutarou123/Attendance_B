@@ -36,7 +36,7 @@ class AttendancesController < ApplicationController
         attendance.update!(item) # !があることでfalseでななく例外処理を返す
       end
     end
-    flash[:success] = "1か月分の勤怠情報を更新しました。"
+    flash[:success] = "1ヶ月分の勤怠情報を更新しました。"
     redirect_to user_url(date: params[:date]) # 勤怠画面に遷移
   rescue ActiveRecord::RecordInvalid # トランザクションによるエラーの分岐です。
     flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
@@ -53,9 +53,9 @@ class AttendancesController < ApplicationController
     
     # 管理権限者、または現在ログインしているユーザーを許可します。
     def admin_or_correct_user
-      @user = User.find(prams[:user_id]) if @user.blank? # ユーザー情報が空だったら、ユーザーidの情報を代入
-      unless current_user?(@user) || current_user.adimin? # 現在ユーザーまたは管理権限者ではない場合
-        flash[:danger] = "管理権限がありません。"
+      @user = User.find(params[:user_id]) if @user.blank? # ユーザー情報が空だったら、ユーザーidの情報を代入
+      unless current_user?(@user) || current_user.admin? # 現在ユーザーまたは管理権限者ではない場合
+        flash[:danger] = "編集権限がありません。"
         redirect_to(root_url) # トップ画面に遷移
       end
     end
