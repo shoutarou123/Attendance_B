@@ -8,6 +8,7 @@ gem 'faker' # サンプルユーザー作成
 gem 'bootstrap-sass'
 gem 'will_paginate', '~> 3.3' # ページネーション機能追加 バージョン3.3以下じゃないと機能しない
 gem 'bootstrap-will_paginate' # ページネーションデザイン調整
+gem 'rounding' # 追加
 # 以下のコメントアウトは8章テキストどおり実施するとアプリケーション読み込まれないためコメントアウトしたもの
 # gem 'puma',         '~> 3.7'
 # gem 'sass-rails',   '~> 5.0'

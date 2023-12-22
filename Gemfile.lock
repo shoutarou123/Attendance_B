@@ -208,6 +208,7 @@ GEM
     reline (0.4.1)
       io-console (~> 0.5)
     rexml (3.2.6)
+    rounding (1.0.1)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     sassc (2.4.0)
@@ -266,6 +267,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.0)
   rails-i18n
+  rounding
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)

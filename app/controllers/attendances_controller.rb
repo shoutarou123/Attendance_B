@@ -11,13 +11,13 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.find(params[:id])
     # 出勤時間が未登録であることを判定します
     if @attendance.started_at.nil? # 始まり時間が登録されていなかったら
-      if@attendance.update(started_at: Time.current.change(sec: 0))  # 現在時刻を登録する。sec: 0は秒数を0にする。
+      if@attendance.update(started_at: Time.current.change(sec: 0).floor_to(15.minutes)) # 現在時刻を登録する。sec: 0は秒数を0にする。.floor_to(15.minutes)で15分丸め。
         flash[:info] = "おはようございます！"
       else
         flash[:danger] = UPDATE_ERROR_MSG
       end
     elsif @attendance.finished_at.nil? # 出社がnilだったら
-      if @attendance.update(finished_at: Time.current.change(sec: 0)) # 現在時刻を登録する。sec: 0が秒数を0にする。
+      if @attendance.update(finished_at: Time.current.change(sec: 0).floor_to(15.minutes)) # 現在時刻を登録する。sec: 0が秒数を0にする。
         flash[:info] = "お疲れさまでした。"
       else
         flash[:danger] = UPDATE_ERROR_MSG
