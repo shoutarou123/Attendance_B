@@ -46,12 +46,21 @@
         <th></th>
       </tr>
     </thead>
-    
+  
     <tbody> <!--table bodyの略で表の本体部分-->
       <% @attendances.each do |day| %>
         <tr>
-          <td><%= l(day.worked_on, format: :short) %></td>
-          <td><%= $days_of_the_week[day.worked_on.wday] %></td>
+          <td><%= l(day.worked_on, format: :short) %></td> <!--日付表示-->
+              <% class_for_day = case $days_of_the_week[day.worked_on.wday]
+                when '土'
+                  'text-primary'
+                when '日'
+                  'text-danger'
+                end
+              %>
+          <td class="<%= class_for_day %>"> <!--上記で曜日指定し、代入したものをここで記述している。更に色指定をCSSで行う。-->
+            <%= $days_of_the_week[day.worked_on.wday] %>
+          </td>
           <td><%= l(day.started_at, format: :timeH) if day.started_at.present? %></td> <!--started_atの値が存在する場合のみ表示-->
           <td><%= l(day.started_at, format: :timeM) if day.started_at.present? %></td>
           <td>
