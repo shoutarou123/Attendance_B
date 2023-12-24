@@ -7,6 +7,12 @@ class UsersController < ApplicationController
   
   def index
     @users = User.paginate(page: params[:page]) # 全てのユーザーUser.all→ページネーション判定できるオブジェクトへ変更を代入した複数形であるため@usersとしています
+    @search_word = params[:search_word] # search_wordの文字を代入
+    if @search_word.present? # search_wordの文字が存在する時
+      @users = User.where("name LIKE ?", "%#{@search_word}%").paginate(page: params[:page]) # nameと部分一致したものを探して表示
+    else
+      @users = User.paginate(page: params[:page]) # 全部を表示
+    end
   end
   
   def show

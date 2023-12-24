@@ -17,4 +17,5 @@ Rails.application.routes.draw do
     end
     resources :attendances, only: :update # viewsなし。updateアクションのみ
   end
+  
 end

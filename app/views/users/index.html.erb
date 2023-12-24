@@ -1,5 +1,17 @@
 <% provide(:title, 'All Users') %>
-<h1>ユーザー一覧</h1>
+<% if @search_word.present? %> <!--search_wordが存在している時-->
+  <h1>検索結果</h1> <!--検索結果を表示-->
+<% else %> <!--search_wordが存在していない時-->
+  <h1>全ユーザー一覧</h1> <!--全ユーザー一覧を表示-->
+<% end %>
+
+<div class="col-md-10 col-md-offset-9">
+  ユーザー名検索 <!--以下追加２-->
+    <%= form_with(url: users_path, local: true, method: :get, class: "search-form") do |form| %>
+    <%= form.text_field :search_word, placeholder: "キーワードを入力", class: "search-input" %>
+    <%= form.submit "検索", class: "search-btn" %>
+    <% end %>
+</div>
 
 <div class="col-md-10 col-md-offset-1">
   <%= will_paginate %>
