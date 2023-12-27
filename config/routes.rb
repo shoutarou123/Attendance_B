@@ -9,9 +9,12 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy' # ログアウト
   
   resources :users do
-    member do
+    collection do
       get 'edit_basic_info' # 勤怠情報編集ページ
-      patch 'update_basic_info' # 勤怠情報更新アクション
+      patch '/update_all_users_info', to: 'users#update_all_users_info', as: 'update_all_users_info'
+    end
+    member do
+      
       get 'attendances/edit_one_month' # 勤怠編集ページ
       patch 'attendances/update_one_month' # 勤怠編集データ更新
     end
