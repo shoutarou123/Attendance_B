@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy] # 共通の@user = User.find(params[:id])をshow,edit,update,destroy,edit_basic_info,update_basic_infoアクションで使えるようにしている
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :edit_basic_info, :update_all_users_info] # ログインユーザーじゃなければ一覧、詳細、編集、更新、削除、勤怠情報編集、勤怠情報更新できない
   before_action :correct_user, only: [:edit, :update] # 現在のユーザーは自分の情報のみ編集可
-  before_action :admin_user, only: [:destroy, :edit_basic_info, :update_all_users_info] # 管理権限あるものだけdestroy,edit_basic_info,update_basic_infoアクションできる
+  before_action :admin_user, only: [:index, :destroy, :edit_basic_info, :update_all_users_info] # 管理権限あるものだけdestroy,edit_basic_info,update_basic_infoアクションできる
   before_action :set_one_month, only: :show # ページ出力前に1ヶ月分のデータの存在を確認・セットします。
   
   def index
@@ -56,18 +56,38 @@ class UsersController < ApplicationController
   end
   
   def update_all_users_info
-    new_basic_time = params[:basic_time].to_i
-    new_work_time = params[:work_time].to_i
-    
-    if User.update_all(basic_time: new_basic_time, work_time: new_work_time)
+    users = User.all
+    new_basic_time = params[:basic_time]
+    new_work_time = params[:work_time]
+    success = true
+
+    users.each do |user|
+      if !user.update(basic_time: new_basic_time, work_time: new_work_time)
+        success = false
+        break
+      end
+    end
+
+    if success
       flash[:success] = "全てのユーザーの基本情報を更新しました。"
     else
       flash[:danger] = "更新は失敗しました。"
     end
-    @basic_time = new_basic_time
-    @work_time = new_work_time
-    redirect_to users_url # 一覧へ遷移
+    redirect_to users_url
   end
+  
+  # def update_all_users_info
+  #   @user = User.all
+  #   new_basic_time = params[:basic_time].to_i
+  #   new_work_time = params[:work_time].to_i
+    
+  #   if User.update_all(basic_time: new_basic_time, work_time: new_work_time)
+  #     flash[:success] = "全てのユーザーの基本情報を更新しました。"
+  #   else
+  #     flash[:danger] = "更新は失敗しました。"
+  #   end
+  #   redirect_to users_url # 一覧へ遷移
+  # end
   
   private
   
