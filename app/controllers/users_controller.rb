@@ -17,6 +17,10 @@ class UsersController < ApplicationController
   
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count # started_atがnilを除外したもの全てを取得しその数を代入
+    unless current_user.admin? || current_user?(@user)
+      flash[:danger] = "アクセスできません"
+      redirect_to(root_url)
+    end
   end
   
   def new
