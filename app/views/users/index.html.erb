@@ -27,14 +27,6 @@
             <%= user.name %> <!--名前表示のみ-->
           <% end %>
         </td>
-       
-        
-        <td class="center">
-          <% if current_user.admin? && !current_user?(user) %> <!--管理者権限を持つかつ現在ユーザー以外であれば下の処理実行-->
-            <!--remote: true機能しないためモーダルウィンドウ表示削除-->
-            <%= link_to "削除", user, data: { turbo_method: :delete, turbo_confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </table>
