@@ -34,14 +34,14 @@ class AttendancesController < ApplicationController
       ActiveRecord::Base.transaction do # トランザクションを開始します
         attendances_params.each do |id, item| # itemは各カラムの値
           attendance = Attendance.find(id)
-          if item[:started_at].blank? && item[:finished_at].present?
+          if item[:started_at].blank? && item[:finished_at].present? # 出社時間が空かつ退社時間が存在する時
             flash[:danger] = "出社時間が入力されていないため、更新できません。"
             redirect_to attendances_edit_one_month_user_url(date: params[:date]) and return
-          elsif item[:started_at].present? && item[:finished_at].blank?
+          elsif item[:started_at].present? && item[:finished_at].blank? # 出社時間が存在するかつ退社時間が空の時
             flash[:danger] = "出社時間のみの変更はできません。"
             redirect_to attendances_edit_one_month_user_url(date: params[:date]) and return
-          elsif item[:started_at].present? && item[:finished_at].present?
-            if item[:finished_at] < item[:started_at]
+          elsif item[:started_at].present? && item[:finished_at].present? # 出社時間が存在するかつ退社時間が存在する時
+            if item[:finished_at] < item[:started_at] # 出社時間の方が大きい時
               flash[:danger] = "退社時間が出社時間よりも早いです。正しい時間を入力してください。"
               redirect_to attendances_edit_one_month_user_url(date: params[:date]) and return
             else
